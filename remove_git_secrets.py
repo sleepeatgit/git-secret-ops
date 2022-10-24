@@ -28,13 +28,14 @@ def remove_secrets(repo_to_scan):
                     read_file = opened_file.read()
                     if secret in read_file:
                         if args.dry_run == "false":
-                            clean = read_file.replace(secret, "***REMOVED***")
                             opened_file.seek(0)
+                            clean = read_file.replace(secret, "***REMOVED***")
                             opened_file.write(clean)
                             opened_file.truncate()
                             print(f"Removed sensitive data from file={str(file)}")
                         else:
                             print(f"Found {secret} in file={str(file)} \n")
+                    opened_file.seek(0)
                 opened_file.close()
 
 if __name__ == "__main__":
