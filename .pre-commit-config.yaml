@@ -1,0 +1,16 @@
+repos:
+- repo: local
+  hooks:
+    - id: tfsec
+      name: tfsec
+      description: Check your terraform.
+      entry: bash -c "tfsec"
+      language: system
+      stages: ["commit", "push"]
+
+    - id: trufflehog
+      name: trufflehog
+      description: Check for secrets.
+      entry: bash -c "trufflehog filesystem --directory=. --no-verification"
+      language: system
+      stages: ["commit", "push"]
